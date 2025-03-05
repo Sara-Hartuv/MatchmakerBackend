@@ -18,8 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<IContext, Datacontext>();
 builder.Services.AddServiceExtension();
 
-//di
-builder.Services.AddServiceExtension();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(option =>

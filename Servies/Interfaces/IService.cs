@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Service.Interfaces
         T AddItem(T item);
         T Update(int id, T item);
         void Delete(int id);
+        
     }
 }

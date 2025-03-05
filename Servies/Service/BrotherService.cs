@@ -1,5 +1,7 @@
-﻿using Repository.Entities;
+﻿using AutoMapper;
+using Repository.Entities;
 using Repository.Interfaces;
+using Service.Dtos;
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,17 +11,19 @@ using System.Threading.Tasks;
 
 namespace Service.Service
 {
-    public class BrotherService : IService<Brother>
+    public class BrotherService : IService<BrotherDto>
     {
         private readonly IRepository<Brother> _repository;
-        public BrotherService(IRepository<Brother> repository)
+        private readonly IMapper _mapper;
+        public BrotherService(IRepository<Brother> repository, IMapper mapper)
         {
+            _mapper = mapper;
             _repository = repository;
         }
 
-        public Brother AddItem(Brother item)
+        public BrotherDto AddItem(BrotherDto item)
         {
-            return _repository.AddItem(item);
+            return _mapper.Map<BrotherDto>(_repository.AddItem(_mapper.Map<Brother>(item)));
         }
 
         public void Delete(int id)
@@ -27,19 +31,19 @@ namespace Service.Service
             _repository.DeleteItem(id);
         }
 
-        public List<Brother> GetAll()
+        public List<BrotherDto> GetAll()
         {
-            return _repository.GetAll();
+            return _mapper.Map<List<BrotherDto>>(_repository.GetAll());
         }
 
-        public Brother GetById(int id)
+        public BrotherDto GetById(int id)
         {
-            return _repository.Get(id);
+            return _mapper.Map<BrotherDto>(_repository.Get(id));
         }
 
-        public Brother Update(int id, Brother item)
+        public BrotherDto Update(int id, BrotherDto item)
         {
-            return _repository.UpdateItem(id, item);
+            return _mapper.Map<BrotherDto>(_repository.UpdateItem(id, _mapper.Map<Brother>(item)));
         }
     }
 }

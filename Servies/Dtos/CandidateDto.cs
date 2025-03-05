@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Service.Dtos
 {
-    public class CandidateDto:User { 
-    public int Id { get; set; } // id אוטומטי
+    public class CandidateDto:UserDto { 
+    
 
     public Sector Sector { get; set; }//מגזר
     public SubSector SubSector { get; set; }//תת מגזר
@@ -46,9 +46,9 @@ namespace Service.Dtos
     public string NameFromHome { get; set; }
     public string MotherOccupation { get; set; }
     //אחים ואחיות
-    public List<Brother> Brothers { get; set; }
+    public List<BrotherDto> Brothers { get; set; }
     public string DescriptionFind { get; set; }
-    public List<Inquiries> Inquiries { get; set; }//טלפונים לבירורים
+    public List<InquiriesDto> Inquiries { get; set; }//טלפונים לבירורים
     public byte[]? Image { get; set; }
     public IFormFile? File { get; set; }
     public bool Status { get; set; }

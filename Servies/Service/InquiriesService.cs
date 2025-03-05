@@ -1,5 +1,7 @@
-﻿using Repository.Entities;
+﻿using AutoMapper;
+using Repository.Entities;
 using Repository.Interfaces;
+using Service.Dtos;
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,37 +11,39 @@ using System.Threading.Tasks;
 
 namespace Service.Service
 {
-    public class InquiriesService : IService <Inquiries>
+    public class InquiriesService : IService <InquiriesDto>
     {
         private readonly IRepository<Inquiries> _repository;
-        public InquiriesService(IRepository<Inquiries> repository)
+        private readonly IMapper _mapper;
+        public InquiriesService(IRepository<Inquiries> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public Inquiries AddItem(Inquiries item)
+        public InquiriesDto AddItem(InquiriesDto item)
         {
-            return _repository.AddItem(item);
+            return _mapper.Map<InquiriesDto>(_repository.AddItem(_mapper.Map<Inquiries>(item)));
         }
 
         public void Delete(int id)
         {
-            _repository.DeleteItem(id);
+           _repository.DeleteItem(id);
         }
 
-        public List<Inquiries> GetAll()
+        public List<InquiriesDto> GetAll()
         {
-            return _repository.GetAll();
+            return _mapper.Map<List<InquiriesDto>>(_repository.GetAll());
         }
 
-        public Inquiries GetById(int id)
+        public InquiriesDto GetById(int id)
         {
-            return _repository.Get(id); 
+            return _mapper.Map<InquiriesDto>(_repository.Get(id));
         }
 
-        public Inquiries Update(int id, Inquiries item)
+        public InquiriesDto Update(int id, InquiriesDto item)
         {
-            return _repository.UpdateItem(id, item);
+            return _mapper.Map<InquiriesDto>(_repository.UpdateItem(id, _mapper.Map<Inquiries>(item)));
         }
     }
 }

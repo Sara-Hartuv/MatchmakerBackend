@@ -20,10 +20,10 @@ namespace Service.Service
         {
             services.AddRepository();
             services.AddScoped<IService<CandidateDto>, CandidateService>();
-            services.AddScoped<IService<Brother>, BrotherService>();
+            services.AddScoped<IService<BrotherDto>, BrotherService>();
             services.AddScoped<IService<City>, CityService>();
-            services.AddScoped<IService<History>, HistoryService>();
-            services.AddScoped<IService<Inquiries>, InquiriesService>();
+            services.AddScoped<IService<HistoryDto>, HistoryService>();
+            services.AddScoped<IService<InquiriesDto>, InquiriesService>();
             services.AddScoped<IService<MatchmakerDto>, MatchmakerService>();
             services.AddScoped<IService<Profession>, ProfessionService>();
             services.AddAutoMapper(typeof(MyMapper));

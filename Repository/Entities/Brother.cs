@@ -18,8 +18,7 @@ namespace Repository.Entities
         public bool Married { get; set; }
         public string NameIn_laws { get; set; }
         public string AddressIn_laws { get; set; }
-        [ForeignKey("Candidate")]
-        public int CandidateId { get; set; }
-        public Candidate Candidate { get; set; }
+        
+
     }
 }

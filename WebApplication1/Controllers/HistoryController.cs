@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
+using Service.Dtos;
 using Service.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,28 +11,28 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class HistoryController : ControllerBase
     {
-        private readonly IService<History> _historyService;
-        public HistoryController(IService<History> historyService)
+        private readonly IService<HistoryDto> _historyService;
+        public HistoryController(IService<HistoryDto> historyService)
         {
             _historyService = historyService;
         }
         // GET: api/<HistoryController>
         [HttpGet]
-        public List<History> Get()
+        public List<HistoryDto> Get()
         {
             return _historyService.GetAll();
         }
 
         // GET api/<HistoryController>/5
         [HttpGet("{id}")]
-        public History Get(int id)
+        public HistoryDto Get(int id)
         {
             return _historyService.GetById(id);
         }
-
+      
         // POST api/<HistoryController>
         [HttpPost]
-        public void Post([FromForm] History value)
+        public void Post([FromForm] HistoryDto value)
         {
             _historyService.AddItem(value);
 
@@ -39,7 +40,7 @@ namespace WebApplication1.Controllers
 
         // PUT api/<HistoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromForm] History value)
+        public void Put(int id, [FromForm] HistoryDto value)
         {
             _historyService.Update(id, value);
         }

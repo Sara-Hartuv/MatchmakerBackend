@@ -40,7 +40,16 @@ namespace Repository.Repositories
 
         public History UpdateItem(int id, History item)
         {
-            throw new NotImplementedException();
+            History history=Get(id);
+            history.DateMatch= DateTime.Now;
+            history.Status = item.Status;
+            history.IsEngaged=history.IsEngaged;
+            context.Save();
+            return history;
+
+
         }
+        
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
+using Service.Dtos;
 using Service.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,8 +13,8 @@ namespace WebApplication1.Controllers
     public class BrotherController : ControllerBase
     {
 
-        private readonly IService<Brother> _brotherService;
-        public BrotherController(IService<Brother> brotherService)
+        private readonly IService<BrotherDto> _brotherService;
+        public BrotherController(IService<BrotherDto> brotherService)
         {
             _brotherService = brotherService;
         }
@@ -27,7 +28,7 @@ namespace WebApplication1.Controllers
         // GET api/<BrotherController>/5
         [HttpGet("{id}")]
         [Authorize(Roles = "candidate")]
-        public Brother Get(int id)
+        public BrotherDto Get(int id)
         {
             return _brotherService.GetById(id);
         }
@@ -35,7 +36,7 @@ namespace WebApplication1.Controllers
         // POST api/<BrotherController>
         [HttpPost]
         [Authorize(Roles = "candidate")]
-        public void Post([FromForm] Brother value)
+        public void Post([FromForm] BrotherDto value)
         {
             _brotherService.AddItem(value);
         }
@@ -43,7 +44,7 @@ namespace WebApplication1.Controllers
         // PUT api/<BrotherController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "candidate")]
-        public void Put(int id, [FromForm] Brother value)
+        public void Put(int id, [FromForm] BrotherDto value)
         {
             _brotherService.Update(id, value);
         }

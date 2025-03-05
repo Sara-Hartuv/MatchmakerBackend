@@ -187,6 +187,9 @@ namespace Mock.Migrations
                     b.Property<int>("Physique")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProfessionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Sector")
                         .HasColumnType("int");
 
@@ -213,14 +216,11 @@ namespace Mock.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("professionId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("professionId");
+                    b.HasIndex("ProfessionId");
 
                     b.ToTable("Candidates");
                 });
@@ -294,8 +294,9 @@ namespace Mock.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -396,7 +397,7 @@ namespace Mock.Migrations
 
                     b.HasOne("Repository.Entities.Profession", "profession")
                         .WithMany()
-                        .HasForeignKey("professionId")
+                        .HasForeignKey("ProfessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

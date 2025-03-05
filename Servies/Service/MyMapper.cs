@@ -21,9 +21,12 @@ namespace Service.Service
             CreateMap<CandidateDto, Candidate>()
                     .ForMember(dest => dest.ImageUrl, src => src.MapFrom(s =>
                         s.File != null ? s.File.FileName : null));
-            CreateMap<Matchmaker, MatchmakerDto>();
-            CreateMap<MatchmakerDto, Matchmaker>();
-            
+            CreateMap<Matchmaker, MatchmakerDto>().ReverseMap();
+            CreateMap<Brother, BrotherDto>().ReverseMap();
+            CreateMap<Inquiries, InquiriesDto>().ReverseMap();
+            CreateMap<History, HistoryDto>().ReverseMap();
+
+
         }
         public byte[] convertToByte(string image)
         {

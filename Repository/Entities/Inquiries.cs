@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository.Entities
 {
- public  enum Type
+ public  enum TypeInquire
         {
             מחותנים,
             שכנים,
@@ -19,6 +20,10 @@ namespace Repository.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public Type Type { get; set; }
+        public TypeInquire Type { get; set; }
+        
+        //[ForeignKey("CandidateId")]
+        //public int CandidateId { get; set; }
+        //public Candidate Candidate { get; set; }
     }
 }
