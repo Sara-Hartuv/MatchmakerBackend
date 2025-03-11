@@ -46,7 +46,7 @@ namespace WebApplication1.Controllers
         //public void Put(int id, [FromBody] Profession value)
         //{
         //    _professionService.Update(id, value);
-        //}
+        //} 
 
         // DELETE api/<ProfessionController>/5
         [HttpDelete("{id}")]

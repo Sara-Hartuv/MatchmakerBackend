@@ -34,13 +34,13 @@ namespace WebApplication1.Controllers
         }
 
         // POST api/<MatchmakerController>
-        [HttpPost]
-        [Authorize(Roles = "admin,matchmaker")]
-        public void Post([FromBody] MatchmakerDto value)
-        {
-            _matchmakerService.AddItem(value);
+        //[HttpPost]
+        //[Authorize(Roles = "admin,matchmaker")]
+        //public void Post([FromBody] MatchmakerDto value)
+        //{
+        //    _matchmakerService.AddItem(value);
 
-        }
+        //}
 
         // PUT api/<MatchmakerController>/5
         [HttpPut("{id}")]

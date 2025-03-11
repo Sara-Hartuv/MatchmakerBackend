@@ -20,6 +20,7 @@ namespace Service.Service
         {
             services.AddRepository();
             services.AddScoped<IRegistrationAndLogin<User>, RegistrationAndLoginService>();
+            services.AddScoped<IMatching, MatchingService>();
             services.AddScoped<IService<CandidateDto>, CandidateService>();
             services.AddScoped<IService<BrotherDto>, BrotherService>();
             services.AddScoped<IService<City>, CityService>();
