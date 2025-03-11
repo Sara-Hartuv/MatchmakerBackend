@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
 using Service.Interfaces;
 
@@ -20,6 +21,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<CityController>
         [HttpGet]
+        [Authorize(Roles = "admin,candidate,matchmaker")]
         public List<City> Get()
         {
             return _cityService.GetAll() ;
@@ -27,6 +29,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<CityController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin,candidate,matchmaker")]
         public City Get(int id)
         {
             return _cityService.GetById(id);
@@ -34,21 +37,24 @@ namespace WebApplication1.Controllers
 
         // POST api/<CityController>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public void Post([FromBody] City value)
         {
             _cityService.AddItem(value);
         }
 
         // PUT api/<CityController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] City value)
-        {
-           _cityService.Update(id, value);
+        //[HttpPut("{id}")]
+        //[Authorize(Roles = "admin")]
+        //public void Put(int id, [FromBody] City value)
+        //{
+        //   _cityService.Update(id, value);
             
-        }
+        //}
 
         // DELETE api/<CityController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
             _cityService.Delete(id);

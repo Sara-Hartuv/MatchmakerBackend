@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
 using Service.Dtos;
 using Service.Interfaces;
@@ -18,6 +19,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<HistoryController>
         [HttpGet]
+        [Authorize(Roles = "admin,matchmaker")]
         public List<HistoryDto> Get()
         {
             return _historyService.GetAll();
@@ -25,6 +27,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<HistoryController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin,matchmaker")]
         public HistoryDto Get(int id)
         {
             return _historyService.GetById(id);
@@ -32,21 +35,24 @@ namespace WebApplication1.Controllers
       
         // POST api/<HistoryController>
         [HttpPost]
-        public void Post([FromForm] HistoryDto value)
+        [Authorize(Roles = "admin")]
+        public void Post([FromBody] HistoryDto value)
         {
             _historyService.AddItem(value);
 
         }
-
+        [Authorize(Roles = "admin,matchmaker")]
+        //לבדוק את העניין שאסור ששדכן יוכל לשנות סתם דברים אולי צריך להוסיף כאן עוד פונקציה שמשנה רק משהו ספציפי ואת הפעולה של עדכון ההיסטוריה להרשות רק למנהל
         // PUT api/<HistoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromForm] HistoryDto value)
+        public void Put(int id, [FromBody] HistoryDto value)
         {
             _historyService.Update(id, value);
         }
 
         // DELETE api/<HistoryController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
             _historyService.Delete(id); 

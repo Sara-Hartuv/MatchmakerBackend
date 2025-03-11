@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
 using Service.Interfaces;
 
@@ -17,6 +18,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<ProfessionController>
         [HttpGet]
+        [Authorize(Roles = "admin,candidate")]
         public List<Profession> Get()
         {
             return _professionService.GetAll();
@@ -24,6 +26,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<ProfessionController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public Profession Get(int id)
         {
             return _professionService.GetById(id);
@@ -31,20 +34,23 @@ namespace WebApplication1.Controllers
 
         // POST api/<ProfessionController>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public void Post([FromBody] Profession value)
         {
             _professionService.AddItem(value);
         }
 
         // PUT api/<ProfessionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Profession value)
-        {
-            _professionService.Update(id, value);
-        }
+        //[HttpPut("{id}")]
+        //[Authorize(Roles = "admin")]
+        //public void Put(int id, [FromBody] Profession value)
+        //{
+        //    _professionService.Update(id, value);
+        //}
 
         // DELETE api/<ProfessionController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
             _professionService.Delete(id);

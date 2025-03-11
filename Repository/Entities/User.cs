@@ -14,17 +14,23 @@ namespace Repository.Entities
     }
     public class User
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Gender Gender { get; set; }
-        public string NumId { get; set; } 
-        public DateTime BornDate { get; set; } 
-        public string Phone { get; set; } 
+        public int Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public Gender? Gender { get; set; }
+        public string? NumId { get; set; } 
+        public DateTime? BornDate { get; set; } 
+        public string? Phone { get; set; } 
         public string Email { get; set; }
         public string Password { get; set; }
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         [ForeignKey("CityId")]
-        public City City { get; set; }//עיר
-        public string Adress { get; set; }
+        public City? City { get; set; }//עיר
+        public string? Adress { get; set; }
+
+        public static object FindFirstValue(string nameIdentifier)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

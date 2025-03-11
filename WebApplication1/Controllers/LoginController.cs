@@ -14,9 +14,9 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IService<User> service;
+        private readonly IRegistrationAndLogin<User> service;
         private readonly IConfiguration config;
-        public LoginController(IService<User> service, IConfiguration config)
+        public LoginController(IRegistrationAndLogin<User> service, IConfiguration config)
         {
             this.service = service;
             this.config = config;
@@ -25,12 +25,21 @@ namespace WebApplication1.Controllers
 
         // POST api/<LoginController>
         [HttpPost("login")]
-        public IActionResult Login([FromQuery] string email, string password)
+        public IActionResult Login([FromForm] string email, [FromForm] string password)
         {
-            var user = Authenticate(email, password);
+
+            var user = service.Authenticate(email, password);
             if (user != null)
             {
-                var token = Generate(user);
+                var token = service.Generate(user);
+                return Ok(token);
+            }
+            else if(email == config["Admin:Email"] && password == config["Admin:Password"])
+            {
+                User admin = new User();
+                admin.Email = email;
+                admin.Password = password;
+                var token = service.Generate(admin);
                 return Ok(token);
             }
             return BadRequest("user does not exist");
@@ -38,56 +47,22 @@ namespace WebApplication1.Controllers
 
         // POST api/<LoginController>
         [HttpPost("signup")]
-        public IActionResult SignUp([FromQuery] string email, string password)
+        public IActionResult SignUp([FromForm] string email, [FromForm] string password, [FromForm] string userType )
         {
-            var user = Authenticate(email, password);
+            var user = service.Authenticate(email, password, userType);
             if (user == null)
             {
                 User u = new User();
                 u.Email = email;
                 u.Password = password;
-                var token = Generate(u);
+                service.AddItem(u,userType);
+                var token = service.Generate(u);
                 return Ok(token);
             }
             return BadRequest("user is exist");
         }
 
-        private string Generate(User user)
-        {
-            //הקוד להצפנה במערך של ביטים 
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
-            //אלגוריתם להצפנה
-            string role;
-            if (user is Candidate)
-            {
-                role = "candidate";
-            }
-            else if (user is Matchmaker)
-            {
-                role = "machmaker";
-            }
-            else
-                role = "user";
-            var carditional = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name,user.FirstName+user.LastName),
-                new Claim(ClaimTypes.Role,role),
-                new Claim(ClaimTypes.NameIdentifier,user.NumId.ToString())
-            };
-
-            var token = new JwtSecurityToken(
-                config["Jwt:Issuer"], config["Jwt:Audience"]
-                , claims,
-          expires: DateTime.Now.AddMinutes(30),
-              signingCredentials: carditional);
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private User Authenticate(string email, string password)
-        {
-            var user = service.GetAll().FirstOrDefault(x => x.Email == email && x.Password == password);
-            return user;
-        }
+        
+       
     }
 }

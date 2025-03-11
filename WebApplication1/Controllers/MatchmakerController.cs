@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
 using Service.Dtos;
 using Service.Interfaces;
@@ -18,6 +19,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<MatchmakerController>
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public List<MatchmakerDto> Get()
         {
             return _matchmakerService.GetAll();
@@ -25,6 +27,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<MatchmakerController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public MatchmakerDto Get(int id)
         {
             return _matchmakerService.GetById(id);
@@ -32,7 +35,8 @@ namespace WebApplication1.Controllers
 
         // POST api/<MatchmakerController>
         [HttpPost]
-        public void Post([FromForm] MatchmakerDto value)
+        [Authorize(Roles = "admin,matchmaker")]
+        public void Post([FromBody] MatchmakerDto value)
         {
             _matchmakerService.AddItem(value);
 
@@ -40,13 +44,15 @@ namespace WebApplication1.Controllers
 
         // PUT api/<MatchmakerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromForm] MatchmakerDto value)
+        [Authorize(Roles = "admin,matchmaker")]
+        public void Put(int id, [FromBody] MatchmakerDto value)
         {
             _matchmakerService.Update(id, value);
         }
 
         // DELETE api/<MatchmakerController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
             _matchmakerService.Delete(id);

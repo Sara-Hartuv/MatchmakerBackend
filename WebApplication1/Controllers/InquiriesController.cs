@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
 using Service.Dtos;
 using Service.Interfaces;
@@ -18,6 +19,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<InquiriesController>
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public List<InquiriesDto> Get()
         {
             return _inquiriesService.GetAll();
@@ -25,6 +27,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<InquiriesController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public InquiriesDto Get(int id)
         {
             return _inquiriesService.GetById(id);
@@ -32,20 +35,23 @@ namespace WebApplication1.Controllers
 
         // POST api/<InquiriesController>
         [HttpPost]
-        public void Post([FromForm] InquiriesDto value)
+        [Authorize(Roles = "candidate")]
+        public void Post([FromBody] InquiriesDto value)
         {
             _inquiriesService.AddItem(value);
         }
 
         // PUT api/<InquiriesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromForm] InquiriesDto value)
+        [Authorize(Roles = "candidate")]
+        public void Put(int id, [FromBody] InquiriesDto value)
         {
             _inquiriesService.Update(id, value);
         }
 
         // DELETE api/<InquiriesController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin,candidate")]
         public void Delete(int id)
         {
             _inquiriesService.Delete(id);

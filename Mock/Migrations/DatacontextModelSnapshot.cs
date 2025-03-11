@@ -71,109 +71,100 @@ namespace Mock.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Adress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AskingMoney")
+                    b.Property<int?>("AskingMoney")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Beard")
+                    b.Property<bool?>("Beard")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("BornDate")
+                    b.Property<DateTime?>("BornDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CellPhone")
+                    b.Property<int?>("CellPhone")
                         .HasColumnType("int");
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClothingStyle")
+                    b.Property<int?>("ClothingStyle")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Confirmation")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DescriptionFind")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FamilyOpenness")
+                    b.Property<int?>("FamilyOpenness")
                         .HasColumnType("int");
 
-                    b.Property<int>("FamilyStyle")
+                    b.Property<int?>("FamilyStyle")
                         .HasColumnType("int");
 
                     b.Property<string>("FatherName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FatherOccupation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<int>("GivesMoney")
+                    b.Property<int?>("GivesMoney")
                         .HasColumnType("int");
 
-                    b.Property<int>("HairColor")
+                    b.Property<int?>("HairColor")
                         .HasColumnType("int");
 
-                    b.Property<int>("Hat")
+                    b.Property<int?>("Hat")
                         .HasColumnType("int");
 
-                    b.Property<int>("HeadCovering")
+                    b.Property<int?>("HeadCovering")
                         .HasColumnType("int");
 
-                    b.Property<double>("Height")
+                    b.Property<double?>("Height")
                         .HasColumnType("float");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LastStudy")
+                    b.Property<int?>("LastStudy")
                         .HasColumnType("int");
 
-                    b.Property<bool>("License")
+                    b.Property<bool?>("License")
                         .HasColumnType("bit");
 
                     b.Property<string>("MotherName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MotherOccupation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameFromHome")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Openness")
+                    b.Property<int?>("Openness")
                         .HasColumnType("int");
 
-                    b.Property<int>("ParentalStatus")
+                    b.Property<int?>("ParentalStatus")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -181,39 +172,36 @@ namespace Mock.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Physique")
+                    b.Property<int?>("Physique")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProfessionId")
+                    b.Property<int?>("ProfessionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Sector")
+                    b.Property<int?>("Sector")
                         .HasColumnType("int");
 
-                    b.Property<int>("SkinTone")
+                    b.Property<int?>("SkinTone")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Smoker")
+                    b.Property<bool?>("Smoker")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<string>("StudyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubSector")
+                    b.Property<int?>("SubSector")
                         .HasColumnType("int");
 
-                    b.Property<int>("Suit")
+                    b.Property<int?>("Suit")
                         .HasColumnType("int");
 
                     b.Property<string>("Workplace")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -317,35 +305,31 @@ namespace Mock.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Adress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("BornDate")
+                    b.Property<DateTime?>("BornDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ExperienceYear")
+                    b.Property<int?>("ExperienceYear")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
@@ -353,8 +337,10 @@ namespace Mock.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -391,15 +377,11 @@ namespace Mock.Migrations
                 {
                     b.HasOne("Repository.Entities.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.HasOne("Repository.Entities.Profession", "profession")
                         .WithMany()
-                        .HasForeignKey("ProfessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfessionId");
 
                     b.Navigation("City");
 
@@ -444,9 +426,7 @@ namespace Mock.Migrations
                 {
                     b.HasOne("Repository.Entities.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.Navigation("City");
                 });

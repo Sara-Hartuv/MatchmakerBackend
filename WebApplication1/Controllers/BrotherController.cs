@@ -14,29 +14,40 @@ namespace WebApplication1.Controllers
     {
 
         private readonly IService<BrotherDto> _brotherService;
-        public BrotherController(IService<BrotherDto> brotherService)
+        private readonly IMyDetails<BrotherDto> _brotherMyDetails;
+        public BrotherController(IService<BrotherDto> brotherService, IMyDetails<BrotherDto> brotherMyDetails)
         {
             _brotherService = brotherService;
+            _brotherMyDetails = brotherMyDetails;
         }
-        //// GET: api/<BrotherController>
-        //[HttpGet]
-        //public List<Brother> Get()
-        //{
-        //    return _brotherService.GetAll();
-        //}
+        // GET: api/<BrotherController>
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public List<BrotherDto> Get()
+        {
+            return _brotherService.GetAll();
+        }
 
         // GET api/<BrotherController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "candidate")]
+        [Authorize(Roles = "admin")]
         public BrotherDto Get(int id)
         {
             return _brotherService.GetById(id);
         }
 
+        // GET api/<BrotherController>/5
+        [HttpGet("GetBrothers")]
+        [Authorize(Roles = "admin,candidate")]
+        public List<BrotherDto> GetBrothers()
+        {
+            return _brotherMyDetails.GetMyDetails();
+        }
+
         // POST api/<BrotherController>
         [HttpPost]
         [Authorize(Roles = "candidate")]
-        public void Post([FromForm] BrotherDto value)
+        public void Post([FromBody] BrotherDto value)
         {
             _brotherService.AddItem(value);
         }
@@ -44,7 +55,7 @@ namespace WebApplication1.Controllers
         // PUT api/<BrotherController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "candidate")]
-        public void Put(int id, [FromForm] BrotherDto value)
+        public void Put(int id, [FromBody] BrotherDto value)
         {
             _brotherService.Update(id, value);
         }

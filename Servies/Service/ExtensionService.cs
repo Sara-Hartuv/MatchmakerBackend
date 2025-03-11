@@ -19,6 +19,7 @@ namespace Service.Service
         public static IServiceCollection AddServiceExtension(this IServiceCollection services)
         {
             services.AddRepository();
+            services.AddScoped<IRegistrationAndLogin<User>, RegistrationAndLoginService>();
             services.AddScoped<IService<CandidateDto>, CandidateService>();
             services.AddScoped<IService<BrotherDto>, BrotherService>();
             services.AddScoped<IService<City>, CityService>();

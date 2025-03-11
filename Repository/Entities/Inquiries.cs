@@ -16,14 +16,9 @@ namespace Repository.Entities
         }
     public class Inquiries
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         public TypeInquire Type { get; set; }
-        
-        //[ForeignKey("CandidateId")]
-        //public int CandidateId { get; set; }
-        //public Candidate Candidate { get; set; }
     }
 }

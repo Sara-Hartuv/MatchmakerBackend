@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<CandidateController>
         [HttpGet]
-        
+        [Authorize(Roles = "admin")]
         public List<CandidateDto> Get()
         {
             return _candidateService.GetAll();
@@ -29,22 +29,23 @@ namespace WebApplication1.Controllers
 
         // GET api/<CandidateController>/5
         [HttpGet("{id}")]
-       
+        [Authorize(Roles = "admin")]
         public CandidateDto Get(int id)
         {
             return _candidateService.GetById(id);
         }
 
-        // POST api/<CandidateController>
-        [HttpPost]
-        public void Post([FromForm] CandidateDto value)
-        {
-            _candidateService.AddItem(value);
-        }
+        //// POST api/<CandidateController>
+        //[HttpPost]
+        //[Authorize(Roles = "candidate")]
+        //public void Post([FromBody] CandidateDto value)
+        //{
+        //    _candidateService.AddItem(value);
+        //}
 
         // PUT api/<CandidateController>/5
         [HttpPut("{id}")]
-        //[Authorize(Roles = "candidate")]
+        [Authorize(Roles = "candidate")]
         public void Put(int id, [FromForm] CandidateDto value)
         {
             _candidateService.Update(id, value);
