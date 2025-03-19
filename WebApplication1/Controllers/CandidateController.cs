@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<CandidateController>
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public List<CandidateDto> Get()
         {
             return _candidateService.GetAll();
@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<CandidateController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public CandidateDto Get(int id)
         {
             return _candidateService.GetById(id);

@@ -86,8 +86,8 @@ namespace Repository.Entities
     {
         רזה_מאד,
         רזה,
-        ממוצעת,
-        מלאה
+        ממוצע_ת,
+        מלא_ה
 
     }
     public enum SkinTone
@@ -138,7 +138,7 @@ namespace Repository.Entities
     }
     public class Candidate : User
     {
-
+        //public int Id { get; set; }
         public Sector? Sector { get; set; }//מגזר
         public SubSector? SubSector { get; set; }//תת מגזר
         public int? GivesMoney { get; set; }

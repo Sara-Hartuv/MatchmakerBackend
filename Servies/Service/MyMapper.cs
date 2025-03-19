@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace Service.Service
 {
-    public class MyMapper:Profile
+    public class MyMapper : Profile
     {
         public MyMapper()
         {
@@ -17,14 +17,15 @@ namespace Service.Service
                File.Exists(Environment.CurrentDirectory + "/Images/" + s.ImageUrl)
                ? convertToByte(Environment.CurrentDirectory + "/Images/" + s.ImageUrl)
                : null));
-            
+
             CreateMap<CandidateDto, Candidate>()
                     .ForMember(dest => dest.ImageUrl, src => src.MapFrom(s =>
                         s.File != null ? s.File.FileName : null));
             CreateMap<Matchmaker, MatchmakerDto>().ReverseMap();
             CreateMap<Brother, BrotherDto>().ReverseMap();
             CreateMap<Inquiries, InquiriesDto>().ReverseMap();
-            CreateMap<History, HistoryDto>().ReverseMap();
+            CreateMap<Match, MatchDto>().ReverseMap();
+            CreateMap<List<Match>, List<MatchDto>>().ReverseMap();
 
 
         }

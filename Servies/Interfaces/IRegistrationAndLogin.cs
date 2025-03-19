@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace Service.Interfaces
 {
+    // ממשק להתחברות והרשמה 
     public interface IRegistrationAndLogin<T>
     {
         List<T> GetAllCandidates();
         List<T> GetAllMachmaker();
-        T GetById(int id);
-
-        T AddItem(T item, string userType);
-        T Update(int id, T item);
-        void Delete(int id);
         string Generate(User user);
+        T AddItem(T t, string userType);
         User Authenticate(string email, string password, string userType);
         User Authenticate(string email, string password);
     }

@@ -37,12 +37,12 @@ namespace WebApplication1.Controllers
         }
 
         // GET api/<BrotherController>/5
-        [HttpGet("GetBrothers")]
-        [Authorize(Roles = "admin,candidate")]
-        public List<BrotherDto> GetBrothers()
-        {
-            return _brotherMyDetails.GetMyDetails();
-        }
+        //[HttpGet("GetBrothers")]
+        //[Authorize(Roles = "admin,candidate")]
+        //public List<BrotherDto> GetBrothers()
+        //{
+        //    return _brotherMyDetails.GetMyDetails();
+        //}
 
         // POST api/<BrotherController>
         [HttpPost]

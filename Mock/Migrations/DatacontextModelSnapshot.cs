@@ -31,28 +31,24 @@ namespace Mock.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AddressIn_laws")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CandidateId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Married")
+                    b.Property<bool?>("Married")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameIn_laws")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceOfStudy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -230,43 +226,6 @@ namespace Mock.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Repository.Entities.History", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DateMatch")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdCandidateGirl")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdCandidateGuy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMatchmaker")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsEngaged")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdCandidateGirl");
-
-                    b.HasIndex("IdCandidateGuy");
-
-                    b.HasIndex("IdMatchmaker");
-
-                    b.ToTable("Histories");
-                });
-
             modelBuilder.Entity("Repository.Entities.Inquiries", b =>
                 {
                     b.Property<int>("Id")
@@ -294,6 +253,52 @@ namespace Mock.Migrations
                     b.HasIndex("CandidateId");
 
                     b.ToTable("Inquiries");
+                });
+
+            modelBuilder.Entity("Repository.Entities.Match", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ConfirmationGirl")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ConfirmationGuy")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DateMatch")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCandidateGirl")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCandidateGuy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMatchmaker")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsEngaged")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCandidateGirl");
+
+                    b.HasIndex("IdCandidateGuy");
+
+                    b.HasIndex("IdMatchmaker");
+
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("Repository.Entities.Matchmaker", b =>
@@ -388,7 +393,14 @@ namespace Mock.Migrations
                     b.Navigation("profession");
                 });
 
-            modelBuilder.Entity("Repository.Entities.History", b =>
+            modelBuilder.Entity("Repository.Entities.Inquiries", b =>
+                {
+                    b.HasOne("Repository.Entities.Candidate", null)
+                        .WithMany("Inquiries")
+                        .HasForeignKey("CandidateId");
+                });
+
+            modelBuilder.Entity("Repository.Entities.Match", b =>
                 {
                     b.HasOne("Repository.Entities.Candidate", "girl")
                         .WithMany()
@@ -413,13 +425,6 @@ namespace Mock.Migrations
                     b.Navigation("guy");
 
                     b.Navigation("matchmaker");
-                });
-
-            modelBuilder.Entity("Repository.Entities.Inquiries", b =>
-                {
-                    b.HasOne("Repository.Entities.Candidate", null)
-                        .WithMany("Inquiries")
-                        .HasForeignKey("CandidateId");
                 });
 
             modelBuilder.Entity("Repository.Entities.Matchmaker", b =>

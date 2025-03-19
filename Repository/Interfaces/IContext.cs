@@ -11,7 +11,7 @@ namespace Repository.Interfaces
         public DbSet<Candidate>  Candidates { get; set; }
         public DbSet<Matchmaker> Matchmakers  { get; set; }
 
-        public DbSet<History> Histories  { get; set; }
+        public DbSet<Match> Matches  { get; set; }
         public DbSet<Brother> Brothers  { get; set; }
 
         public DbSet<Profession > Professions  { get; set; }

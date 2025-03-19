@@ -58,5 +58,5 @@ namespace WebApplication1.Controllers
             _matchmakerService.Delete(id);
 
         }
-    }   
+    }
 }

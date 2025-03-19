@@ -18,7 +18,7 @@ namespace Repository.Repositories
             services.AddScoped<IRepository<Brother>, BrothersRepository>();
             services.AddScoped<IRepository<Candidate>, CandidateRepository>();
             services.AddScoped<IRepository<City>, CityRepository>();
-            services.AddScoped<IRepository<History>, HistoriesRepository>();
+            services.AddScoped<IRepository<Match>, MatchRepository>();
             services.AddScoped<IRepository<Inquiries>, InquiriesRepository>();
             services.AddScoped<IRepository<Matchmaker>, MatchmakersRepository>();
             services.AddScoped<IRepository<Profession>, ProfessionsRepository>();

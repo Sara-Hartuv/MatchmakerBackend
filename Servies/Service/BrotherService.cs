@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Service.Service
 {
-    public class BrotherService : IService<BrotherDto> ,IMyDetails<BrotherDto>
+    public class BrotherService : IService<BrotherDto> 
     {
         private readonly IRepository<Brother> _repository;
         private readonly IRepository<Candidate> _repositoryCandidate;
@@ -44,26 +44,36 @@ namespace Service.Service
             return _mapper.Map<BrotherDto>(_repository.Get(id));
         }
 
-        public List<BrotherDto> GetMyDetails()
+        public BrotherDto[] GetFemaleCandidtes()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var candidate = _repositoryCandidate.Get((int)userId);
-            if (candidate == null)
-            {
-                return null;
-            }
-            var brothers = candidate.Brothers.ToList();
-            if (brothers == null || !brothers.Any())
-            {
-                return new List<BrotherDto>(); // Returning an empty list instead of null is often preferred
-            }
-
-            // Map the list of Brother entities to a list of BrotherDto objects using AutoMapper (or manual mapping)
-            var brothersDto = _mapper.Map<List<BrotherDto>>(brothers);
-
-            // Return the list of BrotherDto objects
-            return brothersDto;
+            throw new NotImplementedException();
         }
+
+        public BrotherDto[] GetMaleCandidtes()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public List<BrotherDto> GetAllBrothers()
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var candidate = _repositoryCandidate.Get((int)userId);
+        //    if (candidate == null)
+        //    {
+        //        return null;
+        //    }
+        //    var brothers = candidate.Brothers.ToList();
+        //    if (brothers == null || !brothers.Any())
+        //    {
+        //        return new List<BrotherDto>(); // Returning an empty list instead of null is often preferred
+        //    }
+
+        //    // Map the list of Brother entities to a list of BrotherDto objects using AutoMapper (or manual mapping)
+        //    var brothersDto = _mapper.Map<List<BrotherDto>>(brothers);
+
+        //    // Return the list of BrotherDto objects
+        //    return brothersDto;
+        //}
 
         public BrotherDto Update(int id, BrotherDto item)
         {

@@ -8,10 +8,10 @@ namespace Repository.Entities
 {
     public class Matchmaker:User
     {
-        
 
+        //public int Id { get; set; }
         public int? ExperienceYear { get; set; }
-        public List<History>? History { get; set; }
+        public List<Match>? History { get; set; }
         public int Score { get; set; } = 0;
     }
 }

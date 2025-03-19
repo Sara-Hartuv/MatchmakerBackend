@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MatchmakerDto = Service.Dtos.MatchmakerDto;
 
 namespace Service.Service
 {
@@ -20,14 +19,17 @@ namespace Service.Service
         {
             services.AddRepository();
             services.AddScoped<IRegistrationAndLogin<User>, RegistrationAndLoginService>();
-            services.AddScoped<IMatching, MatchingService>();
+            services.AddScoped<IHungarianAlgorithm, HungarianAlgorithmService>();
             services.AddScoped<IService<CandidateDto>, CandidateService>();
             services.AddScoped<IService<BrotherDto>, BrotherService>();
             services.AddScoped<IService<City>, CityService>();
-            services.AddScoped<IService<HistoryDto>, HistoryService>();
+            services.AddScoped<IService<MatchDto>, MatchService>();
             services.AddScoped<IService<InquiriesDto>, InquiriesService>();
             services.AddScoped<IService<MatchmakerDto>, MatchmakerService>();
             services.AddScoped<IService<Profession>, ProfessionService>();
+            services.AddScoped<IMyDetails<Candidate>, CandidateService>();
+            services.AddScoped<IServiceMatch, MatchService>();
+            services.AddScoped<IEmailService, SmtpEmailService>();
             services.AddAutoMapper(typeof(MyMapper));
             return services;
         }

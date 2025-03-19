@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
         [Authorize(Roles = "admin,candidate,matchmaker")]
         public List<City> Get()
         {
-            return _cityService.GetAll() ;
+            return _cityService.GetAll();
         }
 
         // GET api/<CityController>/5
@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
         //public void Put(int id, [FromBody] City value)
         //{
         //   _cityService.Update(id, value);
-            
+
         //}
 
         // DELETE api/<CityController>/5

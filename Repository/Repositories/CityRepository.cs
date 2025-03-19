@@ -31,7 +31,7 @@ namespace Repository.Repositories
 
         public City Get(int id)
         {
-            return context.Cities.FirstOrDefault(x => x.Id == id);
+             return context.Cities.FirstOrDefault(x => x.Id == id);
         }
 
         public List<City> GetAll()

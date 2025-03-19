@@ -35,6 +35,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     }
     );
 
+var configuration = builder.Configuration;
+builder.Services.AddSingleton<IConfiguration>(configuration);
+
+
 // enable cors
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 

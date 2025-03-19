@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Service.Service
 {
-    public class RegistrationAndLoginService :IRegistrationAndLogin<User>
+    public class RegistrationAndLoginService : IRegistrationAndLogin<User>
     {
         private readonly IRepository<Candidate> _repositoryCandidate;
         private readonly IRepository<Matchmaker> _repositoryMatchmaker;
@@ -45,11 +45,6 @@ namespace Service.Service
             throw new InvalidOperationException("Invalid user type");
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<User> GetAllCandidates()
         {
             List<Candidate> candidatesList = _repositoryCandidate.GetAll();
@@ -73,15 +68,6 @@ namespace Service.Service
             return usersList;
         }
 
-        public User GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User Update(int id, User item)
-        {
-            throw new NotImplementedException();
-        }
         public User Authenticate(string email, string password, string userType)
         {
             if (userType == "matchmaker")
@@ -170,6 +156,16 @@ namespace Service.Service
             }
 
             return user; // במקרה שהמשתמש לא נמצא או שהסיסמה שגויה
+        }
+
+        public List<User> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public User AddItem(User item)
+        {
+            throw new NotImplementedException();
         }
     }
     
