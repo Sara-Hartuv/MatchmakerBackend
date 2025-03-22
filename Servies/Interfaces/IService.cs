@@ -15,6 +15,5 @@ namespace Service.Interfaces
         T AddItem(T item);
         T Update(int id, T item);
         void Delete(int id);
-        
     }
 }

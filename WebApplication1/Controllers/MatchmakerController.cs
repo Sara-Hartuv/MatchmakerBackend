@@ -13,9 +13,11 @@ namespace WebApplication1.Controllers
     public class MatchmakerController : ControllerBase
     {
         private readonly IService<MatchmakerDto> _matchmakerService;
-        public MatchmakerController(IService<MatchmakerDto> matchmakerService)
+        private readonly IToAdmin<MatchmakerDto> _matchmakerToAdmin;
+        public MatchmakerController(IService<MatchmakerDto> matchmakerService, IToAdmin<MatchmakerDto> matchmakerToAdmin)
         {
             _matchmakerService = matchmakerService;
+            _matchmakerToAdmin = matchmakerToAdmin;
         }
         // GET: api/<MatchmakerController>
         [HttpGet]
@@ -33,15 +35,6 @@ namespace WebApplication1.Controllers
             return _matchmakerService.GetById(id);
         }
 
-        // POST api/<MatchmakerController>
-        //[HttpPost]
-        //[Authorize(Roles = "admin,matchmaker")]
-        //public void Post([FromBody] MatchmakerDto value)
-        //{
-        //    _matchmakerService.AddItem(value);
-
-        //}
-
         // PUT api/<MatchmakerController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "admin,matchmaker")]
@@ -57,6 +50,26 @@ namespace WebApplication1.Controllers
         {
             _matchmakerService.Delete(id);
 
+        }
+
+        [HttpGet("GetUnConfirmationMatchmakers")]
+        //[Authorize(Roles = "admin")]
+        public List<MatchmakerDto> GetUnConfirmationMatchmakers()
+        {
+            return _matchmakerToAdmin.GetUnConfirmationUsers();
+        }
+        [HttpGet("GetConfirmationMatchmakers")]
+        //[Authorize(Roles = "admin")]
+        public List<MatchmakerDto> GetConfirmationMatchmakers()
+        {
+            return _matchmakerToAdmin.GetConfirmationUsers();
+        }
+
+        [HttpPut("Confirmation{id}")]
+        //[Authorize(Roles = "admin")]
+        public void ConfirmationMatchmaker(int id)
+        {
+            _matchmakerToAdmin.ConfirmationUser(id);
         }
     }
 }

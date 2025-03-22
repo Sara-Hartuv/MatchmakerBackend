@@ -12,20 +12,20 @@ using System.ComponentModel.Design;
 
 namespace Service.Service
 {
-    public class CandidateService:IService<CandidateDto>, IMyDetails<Candidate>
+    public class CandidateService : IService<CandidateDto>, IMyDetails<Candidate>, IToAdmin<CandidateDto>
     {
         private readonly IRepository<Candidate> _repository;
         private readonly IService<City> _cityService;
         private readonly IMapper _mapper;
 
-         public CandidateService(IRepository<Candidate> repository , IService<City> cityService, IMapper mapper)
+        public CandidateService(IRepository<Candidate> repository, IService<City> cityService, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
             _cityService = cityService;
         }
 
-   
+
         public CandidateDto AddItem(CandidateDto item)
         {
             return _mapper.Map<CandidateDto>(_repository.AddItem(_mapper.Map<Candidate>(item)));
@@ -36,7 +36,7 @@ namespace Service.Service
             _repository.DeleteItem(id);
         }
 
-       
+
         public List<CandidateDto> GetAll()
         {
             return _mapper.Map<List<CandidateDto>>(_repository.GetAll());
@@ -52,12 +52,29 @@ namespace Service.Service
         {
             return _mapper.Map<CandidateDto>(_repository.UpdateItem(id, _mapper.Map<Candidate>(item)));
         }
+        public List<CandidateDto> GetUnConfirmationUsers()
+        {
+                return _mapper.Map<List<CandidateDto>>(_repository.GetAll().Where(c => !c.Confirmation).ToList());
+        }
+        public List<CandidateDto> GetConfirmationUsers()
+        {
+            return _mapper.Map<List<CandidateDto>>(_repository.GetAll().Where(c => c.Confirmation).ToList());
+        }
+        public void ConfirmationUser(int id)
+        {
+            Candidate c = _repository.Get(id);
+            c.Confirmation = true;
+            _repository.UpdateItem(id, c);
+        }
+
+
         public Candidate[] GetFemaleCandidtes()
         {
             List<Candidate> allCandidates = _mapper.Map<List<Candidate>>(GetAll());
             List<Candidate> femaleCandidates = new List<Candidate>();
 
-            foreach (Candidate candidate in allCandidates) {
+            foreach (Candidate candidate in allCandidates)
+            {
                 if (candidate.Gender == Gender.אישה)
                 {
                     femaleCandidates.Add(candidate);
@@ -107,45 +124,45 @@ namespace Service.Service
             StringBuilder generalInfo = new StringBuilder();
 
 
-            generalInfo.AppendLine($"גיל: {CalculateAge(candidate.BornDate)}");
+            generalInfo.AppendLine($"גיל: {CalculateAge(candidate.BornDate)}\n");
             City city = _cityService.GetById(candidate.CityId ?? 28);
-            generalInfo.AppendLine($"עיר: {city.Name}");
-            generalInfo.AppendLine($"מגזר: {candidate.Sector}");
-            generalInfo.AppendLine($"תת מגזר: {candidate.SubSector}");
-            generalInfo.AppendLine($"פתיחות: {candidate.Openness}");
-            generalInfo.AppendLine($"סגנון לבוש: {candidate.ClothingStyle}");
+            generalInfo.AppendLine($"עיר: {city.Name}\n");
+            generalInfo.AppendLine($"מגזר: {candidate.Sector}\n");
+            generalInfo.AppendLine($"תת מגזר: {candidate.SubSector} \n");
+            generalInfo.AppendLine($"פתיחות: {candidate.Openness}   \n");
+            generalInfo.AppendLine($"סגנון לבוש: {candidate.ClothingStyle} \n");
             if (candidate.Gender == Gender.גבר)
             {
-                generalInfo.AppendLine($"רישיון נהיגה: {(candidate.License == true ? "כן" : "לא")}");
+                generalInfo.AppendLine($"רישיון נהיגה: {(candidate.License == true ? "כן" : "לא")}\n");
             }
-            generalInfo.AppendLine($"סוג טלפון: {candidate.CellPhone} ");
-            generalInfo.AppendLine($"גובה: {candidate.Height} סמ");
+            generalInfo.AppendLine($"סוג טלפון: {candidate.CellPhone}  \n");
+            generalInfo.AppendLine($"גובה: {candidate.Height} סמ \n");
 
-            generalInfo.AppendLine($"מבנה : {candidate.Physique}");
-            generalInfo.AppendLine($"צבע עור: {candidate.SkinTone}");
-            generalInfo.AppendLine($"צבע שיער: {candidate.HairColor}");
+            generalInfo.AppendLine($"מבנה : {candidate.Physique} \n");
+            generalInfo.AppendLine($"צבע עור: {candidate.SkinTone}\n");
+            generalInfo.AppendLine($"צבע שיער: {candidate.HairColor}  \n");
             if (candidate.Gender == Gender.אישה)
             {
-                generalInfo.AppendLine($"סוג לימודים אחרון: {candidate.LastStudy}");
-                generalInfo.AppendLine($"שם מוסד לימודים: {candidate.StudyName}");
-                generalInfo.AppendLine($"מקצוע: {candidate.profession?.Name}");
-                generalInfo.AppendLine($"מקום עבודה: {candidate.Workplace}");
-                generalInfo.AppendLine($"כיסוי ראש: {candidate.HeadCovering}");
+                generalInfo.AppendLine($"סוג לימודים אחרון: {candidate.LastStudy}  \n");
+                generalInfo.AppendLine($"שם מוסד לימודים: {candidate.StudyName} \n");
+                generalInfo.AppendLine($"מקצוע: {candidate.profession?.Name}\n");
+                generalInfo.AppendLine($"מקום עבודה: {candidate.Workplace}  \n");
+                generalInfo.AppendLine($"כיסוי ראש: {candidate.HeadCovering}\n");
             }
             else
             {
-                generalInfo.AppendLine($"כובע: {candidate.Hat}");
-                generalInfo.AppendLine($"חליפה: {candidate.Suit}");
-                generalInfo.AppendLine($"זקן: {(candidate.Beard == true ? "כן" : "לא")}");
-                generalInfo.AppendLine($"מעשן: {(candidate.Smoker == true ? "כן" : "לא")}");
+                generalInfo.AppendLine($"כובע: {candidate.Hat}  \n");
+                generalInfo.AppendLine($"חליפה: {candidate.Suit}\n");
+                generalInfo.AppendLine($"זקן: {(candidate.Beard == true ? "כן" : "לא")}\n");
+                generalInfo.AppendLine($"מעשן: {(candidate.Smoker == true ? "כן" : "לא")} \n");
             }
-            generalInfo.AppendLine($"סגנון משפחתי: {candidate.FamilyStyle}");
-            generalInfo.AppendLine($"מצב הורים: {candidate.ParentalStatus}");
-            generalInfo.AppendLine($"שם האב: {candidate.FatherName}");
-            generalInfo.AppendLine($"עיסוק האב: {candidate.FatherOccupation}");
-            generalInfo.AppendLine($"שם האם: {candidate.MotherName}");
-            generalInfo.AppendLine($"עיסוק האם: {candidate.MotherOccupation}");
-            generalInfo.AppendLine($"פתיחות משפחתית: {candidate.FamilyOpenness}");
+            generalInfo.AppendLine($"סגנון משפחתי: {candidate.FamilyStyle}\n");
+            generalInfo.AppendLine($"מצב הורים: {candidate.ParentalStatus} \n");
+            generalInfo.AppendLine($"שם האב: {candidate.FatherName} \n");
+            generalInfo.AppendLine($"עיסוק האב: {candidate.FatherOccupation} \n");
+            generalInfo.AppendLine($"שם האם: {candidate.MotherName} \n");
+            generalInfo.AppendLine($"עיסוק האם: {candidate.MotherOccupation} \n");
+            generalInfo.AppendLine($"פתיחות משפחתית: {candidate.FamilyOpenness} \n");
 
             return generalInfo.ToString();
         }
@@ -156,16 +173,16 @@ namespace Service.Service
 
             StringBuilder generalInfo = new StringBuilder();
 
-            generalInfo.AppendLine($"שם: {candidate.FirstName+ " "+candidate.LastName}");
-            generalInfo.AppendLine($"גיל: {CalculateAge(candidate.BornDate)}");
-            generalInfo.AppendLine($"כתובת: {candidate.Adress}");
+            generalInfo.AppendLine($"שם: {candidate.FirstName + " " + candidate.LastName} \n");
+            generalInfo.AppendLine($"גיל: {CalculateAge(candidate.BornDate)} \n");
+            generalInfo.AppendLine($"כתובת: {candidate.Adress} \n");
             City city = _cityService.GetById(candidate.CityId ?? 28);
-            generalInfo.AppendLine($"עיר: {city.Name}");
-            generalInfo.AppendLine($"מגזר: {candidate.Sector}");
-            generalInfo.AppendLine($"תת מגזר: {candidate.SubSector}");
-            generalInfo.AppendLine($"פתיחות: {candidate.Openness}");
-            generalInfo.AppendLine($"סגנון לבוש: {candidate.ClothingStyle}");
-            generalInfo.AppendLine($"תאור: {candidate.Description}");
+            generalInfo.AppendLine($"עיר: {city.Name} \n");
+            generalInfo.AppendLine($"מגזר: {candidate.Sector} \n");
+            generalInfo.AppendLine($"תת מגזר: {candidate.SubSector}  \n");
+            generalInfo.AppendLine($"פתיחות: {candidate.Openness}  \n");
+            generalInfo.AppendLine($"סגנון לבוש: {candidate.ClothingStyle}  \n");
+            generalInfo.AppendLine($"תאור: {candidate.Description}   \n");
             if (candidate.Gender == Gender.גבר)
             {
                 generalInfo.AppendLine($"רישיון נהיגה: {(candidate.License == true ? "כן" : "לא")}");
@@ -173,32 +190,32 @@ namespace Service.Service
             generalInfo.AppendLine($"סוג טלפון: {candidate.CellPhone} ");
             generalInfo.AppendLine($"גובה: {candidate.Height} סמ");
 
-            generalInfo.AppendLine($"מבנה : {candidate.Physique}");
-            generalInfo.AppendLine($"צבע עור: {candidate.SkinTone}");
-            generalInfo.AppendLine($"צבע שיער: {candidate.HairColor}");
+            generalInfo.AppendLine($"מבנה : {candidate.Physique}    \n");
+            generalInfo.AppendLine($"צבע עור: {candidate.SkinTone}   \n");
+            generalInfo.AppendLine($"צבע שיער: {candidate.HairColor}   \n");
             if (candidate.Gender == Gender.אישה)
             {
-                generalInfo.AppendLine($"סוג לימודים אחרון: {candidate.LastStudy}");
-                generalInfo.AppendLine($"שם מוסד לימודים: {candidate.StudyName}");
+                generalInfo.AppendLine($"סוג לימודים אחרון: {candidate.LastStudy}   \n");
+                generalInfo.AppendLine($"שם מוסד לימודים: {candidate.StudyName}   \n");
                 generalInfo.AppendLine($"מקצוע: {candidate.profession?.Name}");
-                generalInfo.AppendLine($"מקום עבודה: {candidate.Workplace}");
-                generalInfo.AppendLine($"כיסוי ראש: {candidate.HeadCovering}");
+                generalInfo.AppendLine($"מקום עבודה: {candidate.Workplace}   \n");
+                generalInfo.AppendLine($"כיסוי ראש: {candidate.HeadCovering}   \n");
             }
             else
             {
-                generalInfo.AppendLine($"כובע: {candidate.Hat}");
-                generalInfo.AppendLine($"חליפה: {candidate.Suit}");
+                generalInfo.AppendLine($"כובע: {candidate.Hat}   \n");
+                generalInfo.AppendLine($"חליפה: {candidate.Suit}   \n");
                 generalInfo.AppendLine($"זקן: {(candidate.Beard == true ? "כן" : "לא")}");
                 generalInfo.AppendLine($"מעשן: {(candidate.Smoker == true ? "כן" : "לא")}");
             }
-            generalInfo.AppendLine($"סגנון משפחתי: {candidate.FamilyStyle}");
-            generalInfo.AppendLine($"מצב הורים: {candidate.ParentalStatus}");
-            generalInfo.AppendLine($"שם האב: {candidate.FatherName}");
-            generalInfo.AppendLine($"עיסוק האב: {candidate.FatherOccupation}");
-            generalInfo.AppendLine($"שם האם: {candidate.MotherName}");
-            generalInfo.AppendLine($"עיסוק האם: {candidate.MotherOccupation}");
-            generalInfo.AppendLine($"פתיחות משפחתית: {candidate.FamilyOpenness}");
-            generalInfo.AppendLine($"מחפש: {candidate.DescriptionFind}");
+            generalInfo.AppendLine($"סגנון משפחתי: {candidate.FamilyStyle}   \n");
+            generalInfo.AppendLine($"מצב הורים: {candidate.ParentalStatus}    \n");
+            generalInfo.AppendLine($"שם האב: {candidate.FatherName}    \n");
+            generalInfo.AppendLine($"עיסוק האב: {candidate.FatherOccupation}    \n");
+            generalInfo.AppendLine($"שם האם: {candidate.MotherName}    \n");
+            generalInfo.AppendLine($"עיסוק האם: {candidate.MotherOccupation}    \n");
+            generalInfo.AppendLine($"פתיחות משפחתית: {candidate.FamilyOpenness}    \n");
+            generalInfo.AppendLine($"מחפש: {candidate.DescriptionFind}    \n");
 
 
             return generalInfo.ToString();

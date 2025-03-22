@@ -29,6 +29,8 @@ namespace Service.Service
             services.AddScoped<IService<Profession>, ProfessionService>();
             services.AddScoped<IMyDetails<Candidate>, CandidateService>();
             services.AddScoped<IServiceMatch, MatchService>();
+            services.AddScoped<IToAdmin<CandidateDto>, CandidateService>();
+            services.AddScoped<IToAdmin<MatchmakerDto>, MatchmakerService>();
             services.AddScoped<IEmailService, SmtpEmailService>();
             services.AddAutoMapper(typeof(MyMapper));
             return services;

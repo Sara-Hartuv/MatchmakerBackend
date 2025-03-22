@@ -26,6 +26,7 @@ namespace Service.Service
             CreateMap<Inquiries, InquiriesDto>().ReverseMap();
             CreateMap<Match, MatchDto>().ReverseMap();
             CreateMap<List<Match>, List<MatchDto>>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
 
 
         }

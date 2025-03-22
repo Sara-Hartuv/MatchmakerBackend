@@ -15,9 +15,11 @@ namespace WebApplication1.Controllers
     public class CandidateController : ControllerBase
     {
         private readonly IService<CandidateDto> _candidateService;
-        public CandidateController(IService<CandidateDto> candidateService)
+        private readonly IToAdmin<CandidateDto> _candidateDtoToAdmin;
+        public CandidateController(IService<CandidateDto> candidateService, IToAdmin<CandidateDto> candidateDtoToAdmin)
         {
             _candidateService = candidateService;
+            _candidateDtoToAdmin = candidateDtoToAdmin;
         }
         // GET: api/<CandidateController>
         [HttpGet]
@@ -34,14 +36,25 @@ namespace WebApplication1.Controllers
         {
             return _candidateService.GetById(id);
         }
+        [HttpGet("GetUnConfirmationCandidates")]
+        //[Authorize(Roles = "admin")]
+        public List<CandidateDto> GetUnConfirmationCandidates()
+        {
+            return _candidateDtoToAdmin.GetUnConfirmationUsers();
+        }
+        [HttpGet("GetConfirmationCandidates")]
+        //[Authorize(Roles = "admin,matchmaker")]
+        public List<CandidateDto> GetConfirmationCandidates()
+        {
+            return _candidateDtoToAdmin.GetConfirmationUsers();
+        }
 
-        //// POST api/<CandidateController>
-        //[HttpPost]
-        //[Authorize(Roles = "candidate")]
-        //public void Post([FromBody] CandidateDto value)
-        //{
-        //    _candidateService.AddItem(value);
-        //}
+        [HttpPut("Confirmation{id}")]
+        //[Authorize(Roles = "admin")]
+        public void ConfirmationCandidate(int id)
+        {
+            _candidateDtoToAdmin.ConfirmationUser(id);
+        }
 
         // PUT api/<CandidateController>/5
         [HttpPut("{id}")]

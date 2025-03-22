@@ -31,6 +31,8 @@ namespace Repository.Entities
         [ForeignKey("CityId")]
         public City? City { get; set; }//עיר
         public string? Adress { get; set; }
+        public bool Confirmation { get; set; } = false;// אישור מנהל ?
+
 
     }
 }

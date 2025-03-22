@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Service.Service
 {
-    public class MatchmakerService :  IService<MatchmakerDto>
+    public class MatchmakerService :  IService<MatchmakerDto>, IToAdmin<MatchmakerDto>
     {
         private readonly IRepository<Matchmaker> _repository;
         private readonly IMapper _mapper;
@@ -40,7 +40,20 @@ namespace Service.Service
         {
             return _mapper.Map<MatchmakerDto>(_repository.Get(id));
         }
-
+        public List<MatchmakerDto> GetUnConfirmationUsers()
+        {
+            return _mapper.Map<List<MatchmakerDto>>(_repository.GetAll().Where(c => !c.Confirmation).ToList());
+        }
+        public List<MatchmakerDto> GetConfirmationUsers()
+        {
+            return _mapper.Map<List<MatchmakerDto>>(_repository.GetAll().Where(c => c.Confirmation).ToList());
+        }
+        public void ConfirmationUser(int id)
+        {
+            Matchmaker c = _repository.Get(id);
+            c.Confirmation = true;
+            _repository.UpdateItem(id, c);
+        }
         public MatchmakerDto Update(int id, MatchmakerDto item)
         {
             return _mapper.Map<MatchmakerDto>(_repository.UpdateItem(id, _mapper.Map<Matchmaker>(item)));
