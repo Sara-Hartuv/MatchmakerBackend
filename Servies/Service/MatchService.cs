@@ -45,6 +45,11 @@ namespace Service.Service
             return _mapper.Map<MatchDto>(_repository.Get(id));
         }
 
+        public List<MatchDto> GetMatchesByIdMatchmaker(int id)
+        {
+            return _mapper.Map<List<MatchDto>>(_repository.GetAll().Where(x => x.IdMatchmaker == id));
+        }
+
         public MatchDto GetMatchByIdCandidates(int id1, int id2)
         {
             List<Match> m = _repository.GetAll();

@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
 
         // PUT api/<CandidateController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Put(int id, [FromForm] CandidateDto value)
         {
             _candidateService.Update(id, value);

@@ -12,6 +12,7 @@ namespace Repository.Entities
     public class Brother
     {
         public int Id { get; set; }
+        public string NumId { get; set; }
         public string? Name { get; set; }
         public string? PlaceOfStudy { get; set; }
         public Gender? Gender { get; set; }

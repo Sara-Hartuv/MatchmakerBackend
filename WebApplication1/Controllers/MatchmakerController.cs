@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
 
         // PUT api/<MatchmakerController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin,matchmaker")]
+        //[Authorize(Roles = "admin,matchmaker")]
         public void Put(int id, [FromBody] MatchmakerDto value)
         {
             _matchmakerService.Update(id, value);

@@ -179,8 +179,6 @@ namespace Repository.Entities
         public string? DescriptionFind { get; set; }
         public List<Inquiries>? Inquiries { get; set; }//טלפונים לבירורים
         public string? ImageUrl { get; set; }
-
-        public bool Confirmation { get; set; } = false;// אישור מנהל ?
         public bool Status { get; set; } = true;
 
     }

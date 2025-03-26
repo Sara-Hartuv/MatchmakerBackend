@@ -50,6 +50,13 @@ namespace WebApplication1.Controllers
             return _MatchDtoService.GetById(id);
         }
 
+        [HttpGet("GetMatchesByIdMatchmaker{id}")]
+        [Authorize(Roles = "admin,matchmaker")]
+        public List<MatchDto> GetMatchesByIdMatchmaker(int id)
+        {
+            return _serviceMatch.GetMatchesByIdMatchmaker(id);
+        }
+
         // POST api/<HistoryController>
         [HttpPost]
         //[Authorize(Roles = "admin,matchmaker")]

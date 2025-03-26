@@ -11,6 +11,7 @@ namespace Service.Interfaces
     public interface IServiceMatch
     {
         MatchDto GetMatchByIdCandidates(int id1, int id2);
+        public List<MatchDto> GetMatchesByIdMatchmaker(int id);
         List<Matchmaker> GetAllMatchmakerActives();
     }
 }

@@ -75,7 +75,7 @@ namespace Service.Service
 
             foreach (Candidate candidate in allCandidates)
             {
-                if (candidate.Gender == Gender.אישה)
+                if (candidate.Gender == Gender.אישה && candidate.Confirmation && candidate.Status)
                 {
                     femaleCandidates.Add(candidate);
 
@@ -91,7 +91,7 @@ namespace Service.Service
 
             foreach (Candidate candidate in allCandidates)
             {
-                if (candidate.Gender == Gender.גבר)
+                if (candidate.Gender == Gender.גבר && candidate.Confirmation && candidate.Status)
                 {
                     maleCandidates.Add(candidate);
 

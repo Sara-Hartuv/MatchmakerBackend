@@ -2,6 +2,11 @@
 
 using Microsoft.EntityFrameworkCore;
 using Repository.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
@@ -14,7 +19,7 @@ namespace Repository.Interfaces
         public DbSet<Match> Matches  { get; set; }
         public DbSet<Brother> Brothers  { get; set; }
 
-        public DbSet<Profession > Professions  { get; set; }
+        public DbSet<Profession> Professions  { get; set; }
 
         public DbSet<Inquiries> Inquiries { get; set; }
 

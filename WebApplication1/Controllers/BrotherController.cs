@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<BrotherController>
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public List<BrotherDto> Get()
         {
             return _brotherService.GetAll();
@@ -46,7 +46,7 @@ namespace WebApplication1.Controllers
 
         // POST api/<BrotherController>
         [HttpPost]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Post([FromBody] BrotherDto value)
         {
             _brotherService.AddItem(value);

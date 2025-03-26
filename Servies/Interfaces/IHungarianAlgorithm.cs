@@ -14,7 +14,8 @@ namespace Service.Interfaces
         public int[,] CostMatrixMale { get; set; }
         public int[,] CostMatrixFemale { get; set; }
         public void MatrixFilling(int[,] costMatrix);
-        public Candidate[,] RunHungarianAlgorithm(int[,] costMatrix);
-        
+        public (Candidate[,], int[]) RunHungarianAlgorithm(int[,] costMatrix);
+
+
     }
 }

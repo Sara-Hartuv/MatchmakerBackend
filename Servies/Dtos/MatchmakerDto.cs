@@ -9,7 +9,7 @@ namespace Service.Dtos
 {
     public class MatchmakerDto
     {
-        public int Id { get; set; } // ✔ מזהה השדכן (יכול להיות 0 ב-POST)
+        public int Id { get; set; } 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Gender Gender { get; set; }

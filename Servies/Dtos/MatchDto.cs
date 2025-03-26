@@ -14,11 +14,12 @@ namespace Service.Dtos
         public int IdCandidateGirl { get; set; }
         public int IdCandidateGuy { get; set; }
         public int IdMatchmaker { get; set; }
-        public bool IsEngaged { get; set; }
+        public bool IsEngaged { get; set; } // התארסו?
+        public bool Active { get; set; } = false; //  הצעה פעילה ? 
         public bool ConfirmationGuy { get; set; }
         public bool ConfirmationGirl { get; set; }
         public DateTime DateMatch { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; } // ההצעה הוצעה ?
    
     }
 }

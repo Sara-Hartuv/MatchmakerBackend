@@ -48,6 +48,10 @@ namespace Mock.Migrations
                     b.Property<string>("NameIn_laws")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NumId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PlaceOfStudy")
                         .HasColumnType("nvarchar(max)");
 

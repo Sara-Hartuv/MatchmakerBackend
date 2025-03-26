@@ -28,14 +28,14 @@ namespace Service.Service
 
         public User AddItem(User item, string userType)
         {
-            if(userType == "matchmaker")
+            if (userType == "matchmaker")
             {
                 Matchmaker m = new Matchmaker();
-                m.Email = item.Email;   
+                m.Email = item.Email;
                 m.Password = item.Password;
                 return _repositoryMatchmaker.AddItem(m);
             }
-            else if(userType == "candidate")
+            else if (userType == "candidate")
             {
                 Candidate candidate = new Candidate();
                 candidate.Email = item.Email;
@@ -51,9 +51,9 @@ namespace Service.Service
             List<User> usersList = new List<User>();
             foreach (Candidate candidate in candidatesList)
             {
-                usersList.Add((User)candidate); 
+                usersList.Add((User)candidate);
             }
-            return usersList; 
+            return usersList;
         }
 
 
@@ -168,6 +168,6 @@ namespace Service.Service
             throw new NotImplementedException();
         }
     }
-    
-    }
+
+}
 

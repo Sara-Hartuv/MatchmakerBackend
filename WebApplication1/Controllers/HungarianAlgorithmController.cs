@@ -2,6 +2,7 @@
 using HungarianAlgorithm;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
+using Service.Dtos;
 using Service.Interfaces;
 using Service.Service;
 
@@ -30,8 +31,7 @@ namespace WebApplication1.Controllers
             {
                 return StatusCode(500, "CostMatrix is not initialized.");
             }
-
-            Candidate[,] idAssignments = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrix);
+            (Candidate[,] idAssignments, int[] costMatch) = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrix);
 
             int rows = idAssignments.GetLength(0);
             int cols = idAssignments.GetLength(1);
@@ -50,33 +50,30 @@ namespace WebApplication1.Controllers
 
         }
         [HttpGet("male")]
-        public ActionResult<Candidate[][]> Get10Male()
+        public ActionResult<List<MatchResultsDto>> Get10Male()
         {
-
             _matchingService.MatrixFilling(_matchingService.CostMatrixMale);
-            if (_matchingService.CostMatrix == null)
+            if (_matchingService.CostMatrixMale == null)
             {
                 return StatusCode(500, "CostMatrix is not initialized.");
             }
 
-            Candidate[,] idAssignments = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrixMale);
+            (Candidate[,] idAssignments, int[] costMatch) = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrixMale);
+            List<MatchResultsDto> matchResults = new List<MatchResultsDto>();
 
-            int rows = idAssignments.GetLength(0);
-            int cols = idAssignments.GetLength(1);
-
-            Candidate[][] jaggedArray = new Candidate[rows][];
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < idAssignments.GetLength(0); i++)
             {
-                jaggedArray[i] = new Candidate[cols];
-                for (int j = 0; j < cols; j++)
+                matchResults.Add(new MatchResultsDto
                 {
-                    jaggedArray[i][j] = idAssignments[i, j];
-                }
+                    Male = idAssignments[i, 0],
+                    Female = idAssignments[i, 1],
+                    Score = costMatch[i] // הוספת הניקוד
+                });
             }
-            return Ok(jaggedArray); // מחזיר JSON תקין של מערך
 
-
+            return Ok(matchResults);
         }
+
         [HttpGet("female")]
         public ActionResult<Candidate[][]> Get10Female()
         {
@@ -87,7 +84,7 @@ namespace WebApplication1.Controllers
                 return StatusCode(500, "CostMatrix is not initialized.");
             }
 
-            Candidate[,] idAssignments = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrixFemale);
+            (Candidate[,] idAssignments, int[] costMatch) = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrixFemale);
 
             int rows = idAssignments.GetLength(0);
             int cols = idAssignments.GetLength(1);
