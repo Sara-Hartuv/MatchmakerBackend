@@ -43,6 +43,7 @@ builder.Services.AddCors(options =>
                       policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
+
 // תמיכה ב-Hangfire 
 builder.Services.AddHangfire(config => config.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHangfireServer();

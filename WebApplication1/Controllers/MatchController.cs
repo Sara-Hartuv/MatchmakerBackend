@@ -21,6 +21,7 @@ namespace WebApplication1.Controllers
         private readonly IServiceMatch _serviceMatch;
         private readonly IService<MatchDto> _MatchDtoService;
         private readonly IMapper _mapper;
+        
         public MatchController(IService<MatchDto> matchDtoService, IService<CandidateDto> candidateService, IService<MatchmakerDto> matchmakerService, IEmailService emailService, IMapper mapper, IServiceMatch serviceMatch, IMyDetails<Candidate> candidateDetails)
         {
             _MatchDtoService = matchDtoService;
@@ -39,7 +40,33 @@ namespace WebApplication1.Controllers
             return _MatchDtoService.GetAll();
         }
 
-        
+        // GET api/<HistoryController>/5
+        [HttpGet("GetAllMatchById{id}")]
+        //[Authorize(Roles = "admin,matchmaker")]
+        public List<string> GetAllMatchById(int id)
+        {
+            List<MatchDto> mList = _serviceMatch.GetAllMatchByIdCandidate(id);
+            List<string> sList = new List<string>();
+
+            foreach (MatchDto match in mList)
+            {
+                string candidateDetails;
+                var candidate = _candidateService.GetById(id);
+                if (match.ConfirmationGirl && match.ConfirmationGuy)
+                {
+                     candidateDetails = _candidateDetails.GetAllCandidateInfo(_mapper.Map<Candidate>(candidate));
+                    sList.Add(candidateDetails);
+                }
+                else
+                {
+                    candidateDetails = _candidateDetails.GetGeneralCandidateInfo(_mapper.Map<Candidate>(candidate));
+                    sList.Add(candidateDetails);
+                }
+            }
+
+            return sList;
+        }
+
 
 
         // GET api/<HistoryController>/5

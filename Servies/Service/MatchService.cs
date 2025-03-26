@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using Repository.Entities;
 using Repository.Interfaces;
 using Service.Dtos;
@@ -38,6 +39,13 @@ namespace Service.Service
         public List<MatchDto> GetAll()
         {
             return _mapper.Map<List<MatchDto>>(_repository.GetAll());
+        }
+        public List<MatchDto> GetAllMatchByIdCandidate(int id)
+        {
+            List<Match> matches = _repository.GetAll()
+                                     .Where(x => x.IdCandidateGuy == id || x.IdCandidateGirl == id)
+                                     .ToList();  // It's good to materialize the query here to avoid issues with deferred execution.
+            return _mapper.Map<List<MatchDto>>(matches);
         }
 
         public MatchDto GetById(int id)

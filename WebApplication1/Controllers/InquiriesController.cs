@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<InquiriesController>
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public List<InquiriesDto> Get()
         {
             return _inquiriesService.GetAll();
@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<InquiriesController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public InquiriesDto Get(int id)
         {
             return _inquiriesService.GetById(id);
@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
 
         // POST api/<InquiriesController>
         [HttpPost]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Post([FromBody] InquiriesDto value)
         {
             _inquiriesService.AddItem(value);
@@ -43,7 +43,7 @@ namespace WebApplication1.Controllers
 
         // PUT api/<InquiriesController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Put(int id, [FromBody] InquiriesDto value)
         {
             _inquiriesService.Update(id, value);
@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
 
         // DELETE api/<InquiriesController>/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin,candidate")]
+        //[Authorize(Roles = "admin,candidate")]
         public void Delete(int id)
         {
             _inquiriesService.Delete(id);

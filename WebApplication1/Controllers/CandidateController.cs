@@ -16,10 +16,12 @@ namespace WebApplication1.Controllers
     {
         private readonly IService<CandidateDto> _candidateService;
         private readonly IToAdmin<CandidateDto> _candidateDtoToAdmin;
+      
         public CandidateController(IService<CandidateDto> candidateService, IToAdmin<CandidateDto> candidateDtoToAdmin)
         {
             _candidateService = candidateService;
             _candidateDtoToAdmin = candidateDtoToAdmin;
+            
         }
         // GET: api/<CandidateController>
         [HttpGet]
@@ -36,6 +38,7 @@ namespace WebApplication1.Controllers
         {
             return _candidateService.GetById(id);
         }
+     
         [HttpGet("GetUnConfirmationCandidates")]
         //[Authorize(Roles = "admin")]
         public List<CandidateDto> GetUnConfirmationCandidates()
@@ -58,7 +61,7 @@ namespace WebApplication1.Controllers
 
         // PUT api/<CandidateController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Put(int id, [FromForm] CandidateDto value)
         {
             _candidateService.Update(id, value);
