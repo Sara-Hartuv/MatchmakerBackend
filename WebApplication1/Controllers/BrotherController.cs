@@ -14,11 +14,11 @@ namespace WebApplication1.Controllers
     {
 
         private readonly IService<BrotherDto> _brotherService;
-        private readonly IMyDetails<BrotherDto> _brotherMyDetails;
-        public BrotherController(IService<BrotherDto> brotherService, IMyDetails<BrotherDto> brotherMyDetails)
+        //private readonly IMyDetails<BrotherDto> _brotherMyDetails;
+        public BrotherController(IService<BrotherDto> brotherService/*, IMyDetails<BrotherDto> brotherMyDetails*/)
         {
             _brotherService = brotherService;
-            _brotherMyDetails = brotherMyDetails;
+            //_brotherMyDetails = brotherMyDetails;
         }
         // GET: api/<BrotherController>
         [HttpGet]
@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<BrotherController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public BrotherDto Get(int id)
         {
             return _brotherService.GetById(id);
@@ -54,7 +54,7 @@ namespace WebApplication1.Controllers
 
         // PUT api/<BrotherController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Put(int id, [FromBody] BrotherDto value)
         {
             _brotherService.Update(id, value);
@@ -62,7 +62,7 @@ namespace WebApplication1.Controllers
 
         // DELETE api/<BrotherController>/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "candidate")]
+        //[Authorize(Roles = "candidate")]
         public void Delete(int id)
         {
             _brotherService.Delete(id);
