@@ -75,32 +75,28 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("female")]
-        public ActionResult<Candidate[][]> Get10Female()
+        public ActionResult<List<MatchResultsDto>> Get10Female()
         {
-
             _matchingService.MatrixFilling(_matchingService.CostMatrixFemale);
-            if (_matchingService.CostMatrix == null)
+            if (_matchingService.CostMatrixFemale == null)
             {
                 return StatusCode(500, "CostMatrix is not initialized.");
             }
 
             (Candidate[,] idAssignments, int[] costMatch) = _matchingService.RunHungarianAlgorithm(_matchingService.CostMatrixFemale);
+            List<MatchResultsDto> matchResults = new List<MatchResultsDto>();
 
-            int rows = idAssignments.GetLength(0);
-            int cols = idAssignments.GetLength(1);
-
-            Candidate[][] jaggedArray = new Candidate[rows][];
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < idAssignments.GetLength(0); i++)
             {
-                jaggedArray[i] = new Candidate[cols];
-                for (int j = 0; j < cols; j++)
+                matchResults.Add(new MatchResultsDto
                 {
-                    jaggedArray[i][j] = idAssignments[i, j];
-                }
+                    Female = idAssignments[i, 0],
+                    Male = idAssignments[i, 1],
+                    Score = costMatch[i] // הוספת הניקוד
+                });
             }
-            return Ok(jaggedArray); // מחזיר JSON תקין של מערך
 
-
+            return Ok(matchResults);
         }
 
     }

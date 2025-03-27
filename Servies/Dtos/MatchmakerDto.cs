@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service.Dtos
 {
-    public class MatchmakerDto
+    public class MatchmakerDto : UserDto
     {
         public int Id { get; set; } 
         public string FirstName { get; set; }

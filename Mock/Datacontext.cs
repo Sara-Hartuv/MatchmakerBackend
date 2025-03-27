@@ -21,7 +21,7 @@ namespace Mock
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=YAEL\\MSSQLSERVER01;database=MatchmakerDb;trusted_connection=true");
+            optionsBuilder.UseSqlServer("server=DESKTOP-QI9OCGN;database=MatchmakerDb;trusted_connection=true");
         }
         public void Save()
         {

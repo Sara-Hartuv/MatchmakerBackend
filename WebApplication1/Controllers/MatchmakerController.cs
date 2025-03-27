@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<MatchmakerController>
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public List<MatchmakerDto> Get()
         {
             return _matchmakerService.GetAll();

@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<HistoryController>
         [HttpGet]
-        [Authorize(Roles = "admin,matchmaker")]
+        //[Authorize(Roles = "admin,matchmaker")]
         public List<MatchDto> Get()
         {
             return _MatchDtoService.GetAll();
