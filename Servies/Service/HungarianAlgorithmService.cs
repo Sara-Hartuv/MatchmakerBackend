@@ -68,14 +68,14 @@ namespace Service.Service
             if (c1.ProfessionId == c2.ProfessionId) score += 8;
             if (c1.Smoker == c2.Smoker) score += 3;
             if (c1.Beard == c2.Beard) score += 3;
-            Match m = _mapper.Map<List<Match>>(_matchService.GetAll()).FirstOrDefault(m => (m.guy.Equals(c1) && m.girl.Equals(c2)) || (m.guy.Equals(c2) && m.girl.Equals(c1)));
-            if (m != null)
-            {
-                if (DateTime.Today.Year - m.DateMatch.Year < 1)//הצעה פעמים
-                {
-                    score = 0;
-                }
-            }
+            //Match m = _mapper.Map<List<Match>>(_matchService.GetAll()).FirstOrDefault(m => (m.guy.Equals(c1) && m.girl.Equals(c2)) || (m.guy.Equals(c2) && m.girl.Equals(c1)));
+            //if (m != null)
+            //{
+            //    if (DateTime.Today.Year - m.DateMatch.Year < 1)//הצעה פעמים
+            //    {
+            //        score = 0;
+            //    }
+            //}
             else
                 score += 5;//אף פעם לא הציעו את ההצעה
             if (c1.Brothers.FirstOrDefault(x => x.NumId == c2.NumId) != null)//אחים
